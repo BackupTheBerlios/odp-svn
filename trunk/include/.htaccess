@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "User and Password is nedi "
+AuthUserFile /home/groups/nedi/htdocs/odp/.htpasswd
+Require valid-user
+
