@@ -9,10 +9,10 @@
 //
 //==========================================================================
 
-// get config in .htaccess protected area and perhaps get the "secret config"
+// get config in .htaccess protected area and perhaps get the "secret config dir"
 	require "config/config.php";
-	if ( isset($secretconfig) ){
-		require $secretconfig;
+	if ( isset($secretconfigdir) ){
+		require "$secretconfigdir/config.php";
 	}
 //
 	require "include/libsession.php";
@@ -58,7 +58,7 @@
 			html_footer();
 		}else{
 			html_header("nocache");
-                	splash( "Any user pass will work"  );
+                	splash( "Any user pass will work at the moment"  );
                 	form_login();
 			html_footer();
 		}
