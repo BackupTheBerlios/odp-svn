@@ -1,4 +1,7 @@
 <?php
+// libsession.php
+// - usually first
+//
 function start_session_start(){
 	session_start(); 
 	if (!isset($_SESSION['count'])) {

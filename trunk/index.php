@@ -9,18 +9,12 @@
 //
 //==========================================================================
 
-// get config in .htaccess protected area and perhaps get the "secret config dir"
-	require "config/config.php";
-	if ( isset($secretconfigdir) ){
-		require "$secretconfigdir/config.php";
-	}
 //
-	require "include/libsession.php";
-//
-	require "include/libaaa.php";
-	require "include/libwwwstuff.php";
+        require_once 'include/libsession.php';
 //
 	start_session_start();
+//
+	require_once 'include/libmisc.php';
 //
 	if ( authenticated() ){
 

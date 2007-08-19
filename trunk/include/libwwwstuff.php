@@ -1,4 +1,7 @@
 <?php
+	function getlang(){
+		return $_SERVER['HTTP_ACCEPT_ENCODING'];
+	}
 
 	function splash($txt){
 ?>
