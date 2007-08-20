@@ -133,8 +133,12 @@ var mainmenu = [
 	],
 	[
 		null,'User',null,null,null,
-          		['<img src=./img/16/user.png>','Logout','index.php?pageid=logout.php',null,null],
+		_cmSplit,
+		_cmSplit,
+          		['<img src=./img/16/exit.png>','Logout','index.php?pageid=logout.php',null,null],
  	],
+	_cmSplit,
+	_cmSplit,
   	[
 		null,'Help',null,null,null,
           	['<img src=./img/16/wglb.png>','Developement','index.php?pageid=help.php',null,null],

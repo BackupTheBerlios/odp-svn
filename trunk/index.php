@@ -45,11 +45,9 @@
 		}
 	}
 	else{
-		$reqpage=$_SESSION['reqpage'];
+		$reqpage=$_SESSION['SCRIPT_URI'];
 		if ( authenticate() ){
-			html_header("nocache",$reqpage,2);
-			splash("Welcome " . getuserid() . " to " . $reqpage);
-			html_footer();
+			echo '<META HTTP-EQUIV="Refresh" CONTENT=0; URL=' . $reqpage . ' html-redirect.html">';
 		}else{
 			html_header("nocache");
                 	splash( "Any user pass will work at the moment"  );
