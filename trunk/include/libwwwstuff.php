@@ -29,11 +29,14 @@ function splash($txt){
 }
 
 
-function login($reqpage){
+function login(){
 		global $logintxt;
 	        global $JSMainMenu;
+
+                $reqpage=$_SESSION['reqpage'];
+
 		html_header();
-		splash($logintxt);
+		splash($reqpage . "<br>" . $logintxt);
 //<html
 ?>
 

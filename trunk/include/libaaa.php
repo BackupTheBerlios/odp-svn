@@ -3,13 +3,11 @@
         function getuserid(){
                 if ( isset($_SESSION['authentication']) ){
 			return $_SESSION['authentication'];
-		}else{
-			return '';
 		}
 		return '';
         }
 //
-	function authenticate(){
+	function authenticated(){
                 if ( isset($_SESSION['authentication']) ){
                         return 1;
                 }else{
@@ -31,21 +29,14 @@
                 return 0;
 	}
 //
-	function authenticated(){
-                if ( authenticate() ){
-                        return 1;
-                }else{
-                        return 0;
-                }
-	}
-//
-	function autherized(){
+	function autherized($userid,$pageauth){
+		if ( !isset($pageauth) ){
+			return 1;
+		}
+
                 if ( authenticated() ){
                         return 1;
-                }else{
-                        return 0;
                 }
-
-
+                return 0;
 	}
 ?>
