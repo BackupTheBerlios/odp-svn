@@ -10,7 +10,7 @@ function start_session_start(){
 	    $_SESSION['count']++;
 	}
 
- 	$_SESSION['reqpage'] = $_SERVER['REQUEST_URI'];
+ 	$_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 	return 1;
 }
 

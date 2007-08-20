@@ -14,7 +14,7 @@
 //
 	start_session_start();
 //
-	require_once 'include/libmisc.php';
+	require_once 'include/libindex.php';
 //
 	if ( authenticated() ){
 
