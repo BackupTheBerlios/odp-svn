@@ -1,16 +1,13 @@
 <?php
-	function getlang(){
-		return $_SERVER['HTTP_ACCEPT_ENCODING'];
-	}
+//
+function getlang(){
+	return $_SERVER['HTTP_ACCEPT_ENCODING'];
+}
 
-	function splash($txt){
+function splash($txt){
+#<body onLoad=document.login.user.focus();>
+//<html
 ?>
-	<html>
-<head><title>NeDi - on the way to version 2</title>
-<link href="css/style.css" type=text/css rel=stylesheet>
-<link rel="shortcut icon" href="img/favicon.ico">
-</head>
-<body onLoad=document.login.user.focus();>
 <p>
 <table border=0 cellspacing=1 cellpadding=8 bgcolor=#000000 width=50% align=center>
 	<tr>
@@ -28,9 +25,15 @@
 </table>
 
 <?php
+//html>
 }
 
-function form_login($reqpage){
+
+function login($reqpage){
+		global $logintxt;
+	        global $JSMainMenu;
+		html_header();
+		splash($logintxt);
 //<html
 ?>
 
@@ -53,9 +56,15 @@ function form_login($reqpage){
 
 <?php
 //html>
+		html_footer();
 	}
 
-	function html_header($nocache, $refresh_url, $refresh_pause){
+function html_header($nocache, $refresh_url, $refresh_pause){
+        global $bg1;
+        global $JSMainMenu;
+        global $JSUserMenu;
+        global $tabtag;
+
 //<html
 ?>
 
@@ -77,18 +86,42 @@ function form_login($reqpage){
 
 <body <?=$btag?>>
 
-<?php	
+
+<table bgcolor=#000000 <?=$tabtag?>>
+        <tr bgcolor=#<?="$bg1" ?>>
+                <td align=center width=80>
+                <a href='http://www.nedi.ch'><img src='img/n.png' border=0 hspace=10 valign=middle></a>
+                </td>
+                <td ID=MainMenuID></td>
+                <td width=80 ID=UserId></td>
+        </tr>
+</table>
+<SCRIPT LANGUAGE="JavaScript"><!--
+<?php
 //html>
+        include $JSMainMenu;
+        include $JSUserMenu;
+//<html
+?>
+cmDraw ('MainMenuID', mainmenu, 'hbr', cmThemeN, 'ThemeN');
+cmDraw ('UserId', usermenu, 'hbr', cmThemeN, 'ThemeN');
+--></SCRIPT>
+<?php
+//html>
+
+        return 1;
+
 	}
 
         function html_footer(){
 		global $bg1;
+		global $footertxt;
 //<html
 ?>
 <p>
 <table bgcolor=#000000 cellspacing=1 cellpadding=4 width=100% border=0>
 <tr bgcolor=#<?php echo "$bg1" ?>>
-	<td align=right><font size=-2><a href='http://developer.berlios.de/users/oxo'>ODP</a> otherwise code,look and feel: &copy; 2001-2007 Remo Rickli</font></td>
+	<td align=right><font size=-2><?php echo "$footertxt" ?></font></td>
 </tr>
 </table>
 </body>
@@ -105,69 +138,4 @@ function form_login($reqpage){
 		return null;
         }
 	
-	function domenu(){
-// Clip and paste from nedi ...
-
-global $bg1;
-
-$lang   = 'eng';
-$datfmt = "j.M G:i:s";
-
-$bga    = "D0D0D0";
-$bgb    = "C0C0C0";
-$bia    = "F0F0F0";
-$bib    = "E6E6E6";
-
-$tabtag = "cellspacing=1 cellpadding=6 border=0 width=100%";
-
-// JS for domenu();
-// should be static, built by admin when necessary via php and required: waste of time making it in run time ...
-// also easier to debug :)
-?>
-
-<table bgcolor=#000000 <?=$tabtag?>>
-	<tr bgcolor=#<?="$bg1" ?>>
-		<td align=center width=80>
-		<a href='http://www.nedi.ch'><img src='img/n.png' border=0 hspace=10 valign=middle></a>
-		</td>
-		<td ID=MainMenuID></td>
-		<td width=80 ID=UserId></td>
-	</tr>
-</table>
-
-<SCRIPT LANGUAGE="JavaScript"><!--
-var mainmenu = [
-  	[
-		'<img src=./img/16/fogr.png>','Realtime',null,null,null,
-          		['<img src=./img/16/flop.png>','Ping','index.php?pageid=nettools.php&tool=ping',null,null],
-	],
-];
-
-var usermenu = [
-        [
-                '<img src=./img/16/user.png>',' <?=getuserid()?>',null,null,null,
-                	_cmSplit,
-                        ['<img src=./img/16/exit.png>','Logout','index.php?pageid=logout.php',null,null],
-	],
-	_cmSplit,
-	[
-                '<img src=./img/16/ring.png>','',null,null,null,
-                	['<img src=./img/16/wglb.png>','Developement','index.php?pageid=help.php',null,null],
-                	['<img src=./img/16/user.png>','User','index.php?pageid=help.php',null,null],
-                	_cmSplit,
-                	['<img src=./img/16/wglb.png>','Debug','index.php?pageid=debug.php',null,null],
-                	['<img src=./img/16/idea.png>','About ...',null,null,null],
-        ],
-];
-
-
-cmDraw ('MainMenuID', mainmenu, 'hbr', cmThemeN, 'ThemeN');
-cmDraw ('UserId', usermenu, 'hbr', cmThemeN, 'ThemeN');
---></SCRIPT>
-
-<?php
-
-		return 1;
-	}
-
 ?>

@@ -1,10 +1,5 @@
 <?php
 // help.php
-	function page_domenu(){
-		domenu();
-		return 1;
-	}
-	
 	function page_html_header(){
 		html_header("nocache");
 		return 1;
@@ -25,7 +20,6 @@
 	}
 	
 	function page_init(){
-		require "config/help.php";
 		return 1;
 	}
 

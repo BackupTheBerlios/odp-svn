@@ -1,10 +1,5 @@
 <?php
-// page2.php
-	function page_domenu(){
-		domenu();
-		return 1;
-	}
-	
+// index.php
 	function page_html_header(){
 		html_header("nocache");
 		return 1;
@@ -16,12 +11,7 @@
         }
 	
 	function page_main(){
-		echo "<hr>";
-		echo "Page #2 served to " . getuserid();
-		echo "<p> Session Destroy";
-		echo "<hr>";
-		session_destroy();
-		show_source(__FILE__);
+		splash("Hello");
 		return 1;
 	}
 	

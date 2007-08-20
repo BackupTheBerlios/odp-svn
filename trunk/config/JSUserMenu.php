@@ -1,13 +1,5 @@
 <?php
 ?>
-<SCRIPT LANGUAGE="JavaScript"><!--
-var mainmenu = [
-        [
-                '<img src=./img/16/fogr.png>','Realtime',null,null,null,
-                        ['<img src=./img/16/flop.png>','Ping',null,null,null],
-        ],
-];
-
 var usermenu = [
         [
                 '<img src=./img/16/user.png>',' <?=getuserid()?>',null,null,null,
@@ -24,10 +16,5 @@ var usermenu = [
                         ['<img src=./img/16/idea.png>','About ...',null,null,null],
         ],
 ];
-
-
-cmDraw ('MainMenuID', mainmenu, 'hbr', cmThemeN, 'ThemeN');
-cmDraw ('UserId', usermenu, 'hbr', cmThemeN, 'ThemeN');
---></SCRIPT>
 <?php
 ?>
