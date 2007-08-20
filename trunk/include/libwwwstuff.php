@@ -30,10 +30,11 @@
 <?php
 }
 
-function form_login(){
+function form_login($reqpage){
+//<html
 ?>
 
-<form name="login" method="post" action="<?=$_SESSION['reqpage']?>">
+<form name="login" method="post" action="<?=$reqpage?>">
 
 <table border=0 cellspacing=1 cellpadding=8 bgcolor=#000000 width=50% align=center>
 	<tr>
@@ -49,11 +50,13 @@ function form_login(){
 	</tr>
 </table>
 </form>
-</body>
+
 <?php
+//html>
 	}
 
 	function html_header($nocache, $refresh_url, $refresh_pause){
+//<html
 ?>
 
 <html>
@@ -75,13 +78,23 @@ function form_login(){
 <body <?=$btag?>>
 
 <?php	
+//html>
 	}
 
         function html_footer(){
+		global $bg1;
+//<html
 ?>
+<p>
+<table bgcolor=#000000 cellspacing=1 cellpadding=4 width=100% border=0>
+<tr bgcolor=#<?php echo "$bg1" ?>>
+	<td align=right><font size=-2><a href='http://developer.berlios.de/users/oxo'>ODP</a> otherwise code,look and feel: &copy; 2001-2007 Remo Rickli</font></td>
+</tr>
+</table>
 </body>
 </html>
 <?php
+//html>
         }
 
         function getpageid(){
@@ -116,37 +129,40 @@ $tabtag = "cellspacing=1 cellpadding=6 border=0 width=100%";
 	<tr bgcolor=#<?="$bg1" ?>>
 		<td align=center width=80>
 		<a href='http://www.nedi.ch'><img src='img/n.png' border=0 hspace=10 valign=middle></a>
-		<a href='http://developer.berlios.de/users/oxo'>ODP</a>
 		</td>
 		<td ID=MainMenuID></td>
-		<th width=80>
-		<?=getuserid()?>
-		</th>
+		<td width=80 ID=UserId></td>
 	</tr>
 </table>
 
 <SCRIPT LANGUAGE="JavaScript"><!--
 var mainmenu = [
   	[
-		null,'Realtime',null,null,null,
+		'<img src=./img/16/fogr.png>','Realtime',null,null,null,
           		['<img src=./img/16/flop.png>','Ping','index.php?pageid=nettools.php&tool=ping',null,null],
 	],
-	[
-		null,'User',null,null,null,
-		_cmSplit,
-		_cmSplit,
-          		['<img src=./img/16/exit.png>','Logout','index.php?pageid=logout.php',null,null],
- 	],
-	_cmSplit,
-	_cmSplit,
-  	[
-		null,'Help',null,null,null,
-          	['<img src=./img/16/wglb.png>','Developement','index.php?pageid=help.php',null,null],
-          	['<img src=./img/16/wglb.png>','Debug','index.php?pageid=debug.php',null,null],
-          	['<img src=./img/16/user.png>','User','index.php?pageid=help.php',null,null],
-	],
 ];
+
+var usermenu = [
+        [
+                '<img src=./img/16/user.png>',' <?=getuserid()?>',null,null,null,
+                	_cmSplit,
+                        ['<img src=./img/16/exit.png>','Logout','index.php?pageid=logout.php',null,null],
+	],
+	_cmSplit,
+	[
+                '<img src=./img/16/ring.png>','',null,null,null,
+                	['<img src=./img/16/wglb.png>','Developement','index.php?pageid=help.php',null,null],
+                	['<img src=./img/16/user.png>','User','index.php?pageid=help.php',null,null],
+                	_cmSplit,
+                	['<img src=./img/16/wglb.png>','Debug','index.php?pageid=debug.php',null,null],
+                	['<img src=./img/16/idea.png>','About ...',null,null,null],
+        ],
+];
+
+
 cmDraw ('MainMenuID', mainmenu, 'hbr', cmThemeN, 'ThemeN');
+cmDraw ('UserId', usermenu, 'hbr', cmThemeN, 'ThemeN');
 --></SCRIPT>
 
 <?php

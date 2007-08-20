@@ -2,7 +2,6 @@
 //
 // libmisc.php
 //
-
         require_once 'include/libaaa.php';
         require_once 'include/libwwwstuff.php';
 //

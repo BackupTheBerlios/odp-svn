@@ -16,45 +16,32 @@
 //
 	require_once 'include/libindex.php';
 //
-	if ( authenticated() ){
-
-		$pageid = getpageid();
-		if ( ! isset($pageid)){
-			$pageid = 'help.php';
-		}
-		if ( autherized( getuserid(), $pageid ) ){
+	$pageid = getpageid();
+	if ( ! isset($pageid)){
+		$pageid = 'index.php';
+	}
+	if ( autherized( getuserid(), $pageid ) ){
 //
 // include page with call backs for various routines
-			$page_include = "include/" . $pageid;
-			if ( file_exists( $page_include) ){
-				require $page_include;
-	                        $page_var = page_init();
-        	                page_html_header($page_var);
-                	        page_domenu($page_var);
-                        	page_main($page_var);
-                       		page_html_footer($page_var);
-                        	page_cleanup($page_var);
-			}else{
-				echo "sorry, haven't got that far";
+		$page_include = "include/" . $pageid;
+		$config_include = "condfig/" . $pageid;
+		if ( file_exists( $page_include) ){
+			if ( file_exists( $config_include) ){
+				require $config_include;
 			}
-//
-		}else{ 
-// 
-// just a quick text for test ...
-			echo getuserid() . "Not Authorized\n";
-		}
-	}
-	else{
-		$reqpage=$_SESSION['SCRIPT_URI'];
-		if ( authenticate() ){
-			echo '<META HTTP-EQUIV="Refresh" CONTENT=0; URL=' . $reqpage . ' html-redirect.html">';
+			require $page_include;
+               	 	$page_var = page_init();
+    	        	page_html_header($page_var);
+          		page_domenu($page_var);
+                	page_main($page_var);
+                	page_html_footer($page_var);
+                	page_cleanup($page_var);
 		}else{
-			html_header("nocache");
-                	splash( "Any user pass will work at the moment"  );
-                	form_login();
-			html_footer();
+			echo "sorry, haven't got that far";
 		}
+	}else{ 
+		$reqpage=$_SESSION['SCRIPT_URI'];
+               	form_login($reqpage);
 	}
-
 // That's all folks ...
 ?>
