@@ -1,5 +1,5 @@
 <?php
-// help.php
+// secret.php
 	function page_html_header(){
 		html_header("nocache");
 		return 1;
@@ -11,14 +11,7 @@
         }
 	
 	function page_main(){
-		topform();
-
-	$txt=show_source(__FILE__);	
-        tableit($txt);
-        echo '<hr> Debug Script <hr>';
-        show_source(__FILE__);
-        phpinfo();
-
+		echo "you where asked ...";
 		return 1;
 	}
 	

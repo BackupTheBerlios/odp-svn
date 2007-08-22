@@ -14,22 +14,40 @@
 //
 	start_session_start();
 //
-	require_once 'include/libindex.php';
+        require_once 'include/libaaa.php';
+        require_once 'include/libwwwstuff.php';
 //
-	global $defaultpage;
+        require_once 'config/config.php';
+
+        if ( isset($configdir) ){
+                require $configdir . "/config.php";
+        }else{
+                $configdir = 'config';
+        }
+//
+//
+//
+        $lang = getlang();
+        if ( isset($lang) ){
+                if ( file_exists("$configdir/$lang/config.php") ){
+                        require "$configdir/$lang/config.php";
+                }
+        }
+//
+
+//
 	$pageid = getpageid();
 	if ( ! isset($pageid)){
 		$pageid = $defaultpage;
 	}
 
         $page_include = "include/" . $pageid;
-        $config_include = "config/" . $pageid;
+        $config_include = $configdir . "/" . $pageid;
 
         if ( file_exists( $page_include) ){
        		if ( file_exists( $config_include) ){
                 	require $config_include;
                 }
-		global $pageauth;
 		if ( autherized( getuserid(), $pageauth ) ){
 			require $page_include;
                	 	$page_var = page_init();

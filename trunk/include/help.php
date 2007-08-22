@@ -11,11 +11,7 @@
         }
 	
 	function page_main(){
-		echo "<p>";
-		echo " Call this help!!";
-		echo "<hr>";
-		show_source(__FILE__);
-		echo "<hr>";
+		topform();
 		return 1;
 	}
 	

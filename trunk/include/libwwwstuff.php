@@ -28,6 +28,52 @@ function splash($txt){
 //html>
 }
 
+function tableit($forme){
+	global $bg1, $tabtag;
+//<html
+?>
+<table bgcolor=#000000 <?=$tabtag?> >
+        <tr bgcolor=#<?=$bg1?>>
+                <th><?=$forme?></th>
+        </tr>
+</table>
+<?php
+//html>
+};
+
+function topform($name,$value,$replace){
+	global $bg1,$bg2;
+	global $tabtag;
+	global $mnuimg;
+	global $mnutxt;
+	
+	$pageid=getpageid();
+
+	$standard="
+<form method='get' action=" . $_SESSION['reqpage'] . ">
+<input type=hidden name=pageid value='" . getpageid() . "'>
+" . $name . "<input type='text' name='text' value='" . $value . "' size='60'> </th>
+<th width=80> <input type='submit' name='submit' value='submit'>
+</form>
+";
+	if ( isset($replace) ){
+		$standard=$replace;
+	}
+
+//<html
+?>
+<table bgcolor=#000000 <?=$tabtag?> >
+	<tr bgcolor=#<?=$bg1?>>
+		<th width=80><a href=<?=$_SESSION['reqpage']?>><img src=img/32/<?=$mnuimg?> border=0><?=$mnutxt?></a></th>
+		<th><?=$standard?></th>
+	</tr>
+</table>
+<p>
+<?php
+//html>
+
+}
+
 
 function login(){
 		global $logintxt;
@@ -99,6 +145,7 @@ function html_header($nocache, $refresh_url, $refresh_pause){
                 <td width=80 ID=UserId></td>
         </tr>
 </table>
+<p>
 <SCRIPT LANGUAGE="JavaScript"><!--
 <?php
 //html>
@@ -134,7 +181,6 @@ cmDraw ('UserId', usermenu, 'hbr', cmThemeN, 'ThemeN');
         }
 
         function getpageid(){
-		//return "page2.php";
 		if (  isset( $_GET['pageid']) ){
                 	return $_GET['pageid'];
 		}

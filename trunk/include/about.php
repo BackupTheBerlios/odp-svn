@@ -11,7 +11,11 @@
         }
 	
 	function page_main(){
-		echo "Credits etc";
+		global $abttxt;
+
+		topform('none','none',' ');
+		tableit($abttxt);
+
 		return 1;
 	}
 	
