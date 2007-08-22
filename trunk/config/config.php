@@ -16,4 +16,28 @@
 // defaults
         $mnuimg="bomb.png";
         $mnutxt="None";
+
+	$JSMainC[0] = array (
+			'name' => 'Secret',
+			'auth' => 'admin',
+			'icon' => 'fogr.png',
+			'members' => array (
+				'secret.php'
+			),
+		);
+
+	$JSMainM['secret.php'] = array (
+			'name' => 'Click Me',
+			'auth' => 'admin',
+			'icon' => 'flop.png',
+		);
+
+echo '<pre>';
+print_r($JSMainC);
+print_r($JSMainM);
+$sz = count($JSMainC);
+echo "size of " . $sz;
+
+echo '</pre>';
+
 ?>
