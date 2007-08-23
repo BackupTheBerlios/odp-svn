@@ -17,27 +17,30 @@
         $mnuimg="bomb.png";
         $mnutxt="None";
 
-	$JSMainC[0] = array (
-			'name' => 'Secret',
-			'auth' => 'admin',
-			'icon' => 'fogr.png',
+	$JSMainC[0] = array ( 'label' => 'Secret', 'auth' => 'admin', 'icon' => 'fogr.png',
 			'members' => array (
-				'secret.php'
+				'secret.php',
 			),
 		);
 
-	$JSMainM['secret.php'] = array (
-			'name' => 'Click Me',
-			'auth' => 'admin',
-			'icon' => 'flop.png',
-		);
 
-echo '<pre>';
-print_r($JSMainC);
-print_r($JSMainM);
-$sz = count($JSMainC);
-echo "size of " . $sz;
+        $JSUserC[0] = array ( 'label' => '', 'auth' => 'none', 'icon' => 'user.png', 
+			'members' => array (
+                                'logout.php',
+                        ),
+                );
 
-echo '</pre>';
 
+	
+        $JSUserC[1] = array ( 'label' => '', 'auth' => 'none', 'icon' => 'ring.png',
+                        'members' => array (
+                                'about.php',
+                                'help.php',
+                                'debug.php',
+                        ),
+                );
+        $JSDefiM['about.php'] 	= 	array ( 'label' => 'Logout', 	'auth' => 'none', 	'icon' => 'exit.png',);
+	$JSDefiM['help.php'] 	= 	array ( 'label' => 'Click Me',	'auth' => 'admin', 	'icon' => 'flop.png',);
+        $JSDefiM['secret.php'] 	= 	array ( 'label' => 'Click Me',	'auth' => 'admin', 	'icon' => 'flop.png',);
+        $JSDefiM['logout.php'] 	= 	array ( 'label' => 'Logout', 	'auth' => 'none',	'icon' => 'exit.png',);
 ?>
