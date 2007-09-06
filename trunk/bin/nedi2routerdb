@@ -1,0 +1,49 @@
+#!/bin/bash
+#jnsw-m9-wan-01;CatOS
+#jnsw-studie-dmz-01;IOS
+
+rancid='/home/rancid'
+
+domains=$*
+user='odp'
+pass='odp123456'
+nedi='nedi'
+
+mydevice(){
+	#mysqlpara="$nedi --skip-column-names --user $user --password=$pass"
+	mysqlpara="$nedi --silent --skip-column-names --user $user --password=$pass"
+	mysqlsel='select name,os from devices;'
+	#echo "$mysqlpara, $mysqlsel"
+	{
+		mysql $mysqlpara <<EOF
+                        $mysqlsel
+EOF
+	} |tr '\t' ';'
+}
+
+
+{
+	for domain in $domains; do
+		routerdb="$rancid/var/$domain/router.db"
+
+	{
+		for line in $(mydevice);do
+			device=''
+			os=''
+			device=${line%;*}	
+			os=${line#*;}
+			case $os in
+				IOS)	ranos=cisco
+					;;
+				CatOS)	ranos=cat5
+					;;
+				*)	ranos=''
+			esac
+			if [ "$ranos" != '' ];then
+			randev="$device.$domain:$ranos:up"
+			echo $randev
+			fi
+		done
+	} >${routerdb}
+	done 
+}

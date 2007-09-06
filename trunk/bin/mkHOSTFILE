@@ -1,0 +1,2 @@
+cat /home/rancid/var/$1/router.db |cut -f 1 -d':'>$HOME/var/HOSTFILE
+

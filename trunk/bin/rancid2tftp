@@ -1,0 +1,19 @@
+#!/bin/bash
+
+rancid='/home/rancid'
+rancidvar="$rancid/var"
+
+domains=$*
+
+confgdb='/tftpboot/confgdb'
+
+
+{
+	for domain in $domains; do
+		routerconf="$rancidvar/$domain/configs"
+
+		{
+			cp $routerconf/* $confgdb
+		} 
+	done 
+}
