@@ -1,0 +1,8 @@
+#!/bin/bash
+for device in $(cat ~rancid/var/$1/router.db|cut -f 1 -d ':');do 
+	php5 ~cacti/html/cli/add_device.php \
+	--description=$device --ip=$device --notes="$(date) rancid.db" \
+	--template=1 \
+	--version=2 --community=dkjndata; 
+done
+
