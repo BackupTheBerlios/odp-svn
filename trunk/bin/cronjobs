@@ -1,3 +1,0 @@
-0 2 * * * /home/odp/bin/nedi2routerdb
-0 4 * * * /home/odp/bin/rancid2tftp
-
