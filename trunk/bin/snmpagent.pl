@@ -119,13 +119,6 @@ sub my_snmp_handler {
                 } 
         } 
 } 
-#--------------------------------
-# Standard Example from here ...
-#--------------------------------
-sub shut_it_down { 
-  print STDERR "Closing $program";
-  $running = 0; 
-} 
 
 {
         if (!$agent) {
@@ -133,8 +126,9 @@ sub shut_it_down {
         }
 
 	print STDERR "$0 @ $regat using $mibdata ($delimV) ($delimT)\n";
-# if we're not embedded, this will get auto-set below to 1 
+
         my $regoid = new NetSNMP::OID($regat); 
 
         $agent->register($program, $regoid, \&my_snmp_handler);
 }
+########################################################################
