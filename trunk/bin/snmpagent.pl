@@ -2,12 +2,6 @@
 
 ########################################
 #
-# In snmpd.conf:
-# perl debugging = '1';
-# perl verbose = '1';
-# perl $regat = <some oid>; $extension = <some number>; $mibdata = <some file> ; $delimT=<some delimiter>; $delimV=<some delimeter>;do "/path/to/perl_module.pl"; 
-# 
-# - use snmpd -f to debug ... 
 # 
 # Owen Brotherwood, DK 2007 
 # Based on original perl module example 
@@ -19,23 +13,56 @@
 $program = $0;
 
 if (!defined($regat)) {
-	help($program . ':No $regat defined'."\n");
+	help('No $regat defined');
 }
-
-use NetSNMP::OID (':all'); 
-use NetSNMP::agent (':all'); 
-use NetSNMP::ASN (':all'); 
 
 sub help {
-	my $message;
-	print STDERR $message;
+	my ($message) = @_;
+	print STDERR '
+ERROR: ' .  $program . ':' . $message . 
+'
+
+Here is some help ...
+
+	This program should be started from snmpd.conf, an example for allowing one to walk /etc/passwd would be when this program is /etc/snmp/snmpagent.pl:
+		perl print STDERR \'Perl extentsions:\' . \n\"
+		perl $debugging = \'1\';
+		perl $verbose = \'1\';
+		perl {$regat = \'.1.3.6.1.4.1.8072.999\'; $extenstion = \'1\'; $mibdata = \'/etc/passwd\'; $delimT=\'\'; $delimV=\':\'; do \'/etc/snmp/snmpagent.pl\';}
+
+	Use snmpd -f to see what is going on.
+
+	If $delimT is defined, the first two values are comment(for documentation) and type, for example 4.
+	If $delimT is \'\', ASN_OCTET_STR (4) is presummed.
+
+	So, with $delimV=\':\' and $delimT=\'=\':
+		oidname1=4=value1:value2
+		oidname2=4=value3:value4
+
+	The result of a snmpwalk would be:
+		NET-SNMP-MIB::netSnmp.999.1.1.1 = STRING: "value1"
+		NET-SNMP-MIB::netSnmp.999.1.1.2 = STRING: "value2"
+		NET-SNMP-MIB::netSnmp.999.1.1.1 = STRING: "value3"
+		NET-SNMP-MIB::netSnmp.999.1.1.1 = STRING: "value4"
+
+	NB: snmptable requires a MIB to work.
+
+	Owen Brotherwood, DK 2007
+	GNU General Public License V3
+';
+	die($message);
 }
+
+use NetSNMP::OID (':all');
+use NetSNMP::agent (':all');
+use NetSNMP::ASN (':all');
 
 sub my_snmp_handler { 
     	my ($handler, $registration_info, $request_info, $requests) = @_; 
     	my $request; 
     	my %my_oid = (); 
 	my @mibdata;
+	my $ASN_OCTET_STR = 4;
 # for this example, wasteful read test data in every time ... 
     	open(MIB,$mibdata); 
     	@mibdata = <MIB>; 
@@ -53,7 +80,7 @@ sub my_snmp_handler {
 		}else{
 			$index_values = $line;
 			$index_name = 'Unknown';
-			$index_type = '4';
+			$index_type = $ASN_OCTET_STR;
 		}
                 my @value = split(/$delimV/, $index_values); 
                 my $index = 1; 
@@ -116,7 +143,7 @@ sub my_snmp_handler {
 
 {
         if (!$agent) {
-                die "Should be embedded, run from snmpd.conf...\n";
+               help('No $agent defined');
         }
 
 	print STDERR "$0 @ $regat using $mibdata ($delimV) ($delimT)\n";
