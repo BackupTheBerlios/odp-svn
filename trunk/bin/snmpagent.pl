@@ -24,7 +24,9 @@ ERROR: ' .  $program . ':' . $message .
 
 Here is some help ...
 
-	This program should be started from snmpd.conf, an example for allowing one to walk /etc/passwd would be when this program is /etc/snmp/snmpagent.pl:
+	This program should be started from snmpd.conf. 
+
+	An example for allowing one to walk /etc/passwd would be when this program is /etc/snmp/snmpagent.pl:
 		perl print STDERR \'Perl extentsions:\' . \n\"
 		perl $debugging = \'1\';
 		perl $verbose = \'1\';
@@ -32,7 +34,7 @@ Here is some help ...
 
 	Use snmpd -f to see what is going on.
 
-	If $delimT is defined, the first two values are comment(for documentation) and type, for example 4.
+	If $delimT is not \'\', the first two values are comment(for documentation) and type, for example 4.
 	If $delimT is \'\', ASN_OCTET_STR (4) is presummed.
 
 	So, with $delimV=\':\' and $delimT=\'=\':
@@ -67,7 +69,7 @@ sub my_snmp_handler {
     	open(MIB,$mibdata); 
     	@mibdata = <MIB>; 
     	close(MIB); 
-# we append .1 to $regat for the area which the test data is available
+# we append $extension to $regat for the area which the test data is available
     	$base_oid = new NetSNMP::OID($regat . '.' . $extension); 
 # start taking in values 
         undef($prev_oid); 
@@ -79,7 +81,7 @@ sub my_snmp_handler {
                 	($index_name, $index_type, $index_values) = split(/$delimT/, $line); 
 		}else{
 			$index_values = $line;
-			$index_name = 'Unknown';
+			$index_name = $mibdata;
 			$index_type = $ASN_OCTET_STR;
 		}
                 my @value = split(/$delimV/, $index_values); 
@@ -107,6 +109,7 @@ sub my_snmp_handler {
 	        $next_oid = new NetSNMP::OID($this_oid . '.1');
 		$oid_next{$this_oid} = $next_oid;
 	}
+# Now do the request hope it has not timed out
         for ($request = $requests; $request; $request = $request->next()) { 
                 $oid = $request->getOID(); 
                 print STDERR "$program @ $oid " if ($debugging); 
@@ -121,7 +124,7 @@ sub my_snmp_handler {
                         } 
                 }elsif ($request_info->getMode() == MODE_GETNEXT) { 
 # long way to walk 
-                        print STDERR " GETNEXT " if($debugging); 
+                        print STDERR " GETNEXT " if ($debugging); 
                         if (defined($oid_next{$oid})) { 
                                 $next_oid = $oid_next{$oid}; 
                                 $type_oid = $oid_type{$next_oid}; 
@@ -146,10 +149,11 @@ sub my_snmp_handler {
                help('No $agent defined');
         }
 
-	print STDERR "$0 @ $regat using $mibdata ($delimV) ($delimT)\n";
+	print STDERR "$0 @ $regat ($extension) using $mibdata ($delimV) ($delimT)\n";
 
         my $regoid = new NetSNMP::OID($regat); 
 
         $agent->register($program, $regoid, \&my_snmp_handler);
+	print STDERR $program . " Goodbye cruel world, I leave you with my_snmp_handler\n";
 }
 ########################################################################
