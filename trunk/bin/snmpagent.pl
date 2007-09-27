@@ -12,20 +12,11 @@
 #
 ######################################### 
 
-# running from snmpd.conf  or command line
-if (defined($my_regat)) {
-	$regat = $my_regat;
-	$mibdata = $my_mibdata;
-#	my $delimT = $my_delimT;
-#	my $delimV = $my_delimV;
-}else{
-        my $regat = $ARGV[0];          # Register at this OID
-        my $mibdata = $ARGV[1];        # File for data Name_for_Values$delimTType_of_Values$delimTValue1$delimVValue2$delimV
-        my $delimT = $ARGV[2];         # Delimeter between Name $delimT Type $delimV Values
-        my $delimV = $ARGV[3];         # Delimeter between Values
-}
-
 $program = $0;
+
+if (!defined($regat)) {
+	die($program . ':No $regat defined'."\n");
+}
 
 use NetSNMP::OID (':all'); 
 use NetSNMP::agent (':all'); 
