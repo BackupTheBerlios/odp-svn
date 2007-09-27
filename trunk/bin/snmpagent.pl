@@ -27,10 +27,6 @@ if (defined($my_regat)) {
 
 $program = $0;
 
-# For print STDERR which can be seen when using -f option for snmpd
-$debugging = 0; 
-$verbose = 0;
-
 use NetSNMP::OID (':all'); 
 use NetSNMP::agent (':all'); 
 use NetSNMP::ASN (':all'); 
