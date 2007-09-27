@@ -1,8 +1,11 @@
 #!/usr/bin/perl 
 
 ########################################
-# 
-# perl do "/path/to/perl_module.pl"; 
+#
+# In snmpd.conf:
+# perl debugging = '1';
+# perl verbose = '1';
+# perl $regat = <some oid>; $extension = <some number>; $mibdata = <some file> ; $delimT=<some delimiter>; $delimV=<some delimeter>;do "/path/to/perl_module.pl"; 
 # 
 # - use snmpd -f to debug ... 
 # 
@@ -10,31 +13,35 @@
 # Based on original perl module example 
 # GNU General Public License V3 
 #
+#
 ######################################### 
 
 $program = $0;
 
 if (!defined($regat)) {
-	die($program . ':No $regat defined'."\n");
+	help($program . ':No $regat defined'."\n");
 }
 
 use NetSNMP::OID (':all'); 
 use NetSNMP::agent (':all'); 
 use NetSNMP::ASN (':all'); 
 
+sub help {
+	my $message;
+	print STDERR $message;
+}
+
 sub my_snmp_handler { 
     	my ($handler, $registration_info, $request_info, $requests) = @_; 
     	my $request; 
     	my %my_oid = (); 
 	my @mibdata;
-	
-
 # for this example, wasteful read test data in every time ... 
     	open(MIB,$mibdata); 
     	@mibdata = <MIB>; 
     	close(MIB); 
 # we append .1 to $regat for the area which the test data is available
-    	$base_oid = new NetSNMP::OID($regat . '.1'); 
+    	$base_oid = new NetSNMP::OID($regat . '.' . $extension); 
 # start taking in values 
         undef($prev_oid); 
         $jndex = 1; 
